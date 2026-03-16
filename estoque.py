@@ -35,6 +35,29 @@ data TEXT
 
 conn.commit()
 
+# validacao da data
+
+from datetime import datetime
+
+def validar_data():
+
+    while True:
+
+        data_str = input("Data (YYYY-MM-DD): ")
+
+        try:
+            data = datetime.strptime(data_str, "%Y-%m-%d")
+
+            hoje = datetime.today()
+
+            if data > hoje:
+                print("Erro: a data não pode ser futura.")
+            else:
+                return data_str
+
+        except ValueError:
+            print("Erro: data inválida. Use o formato YYYY-MM-DD.")
+
 
 # cadastrar usuario
 def cadastrar_usuario():
@@ -96,7 +119,7 @@ def cadastrar_produto():
 
     quantidade = int(input("Quantidade inicial: "))
 
-    data = input("Data do cadastro (YYYY-MM-DD): ")
+    data = validar_data()
 
     cursor.execute(
         "INSERT INTO produtos (nome, quantidade, data_criacao) VALUES (?, ?, ?)",
@@ -175,7 +198,8 @@ def entrada_estoque():
             break
 
     quantidade = int(input("Quantidade recebida: "))
-    data = input("Data da entrada (YYYY-MM-DD): ")
+
+    data = validar_data()
 
     nova_qtd = estoque[0] + quantidade
 
@@ -244,7 +268,7 @@ def saida_estoque():
         else:
             break
 
-    data = input("Data da saída (YYYY-MM-DD): ")
+    data = validar_data()
 
     nova_qtd = estoque[0] - quantidade
 
