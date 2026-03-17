@@ -1,29 +1,59 @@
 import tkinter as tk
+from tkinter import messagebox
 import banco
 
+# cadastrar usuario
+def tela_cadastrar_usuario():
 
-def cadastrar_usuario():
-    banco.cadastrar_usuario()
+    janela = tk.Toplevel()
+
+    janela.title("Cadastrar Usuário")
+    janela.geometry("300x200")
+
+    tk.Label(janela, text="Nome do usuário").pack()
+
+    nome = tk.Entry(janela)
+    nome.pack()
+
+    def salvar():
+
+        banco.cadastrar_usuario(nome.get())
+
+        messagebox.showinfo("Sucesso", "Usuário cadastrado")
+
+        janela.destroy()
+
+    tk.Button(janela, text="Salvar", command=salvar).pack(pady=10)
 
 
-def cadastrar_produto():
-    banco.cadastrar_produto()
+# listar produtos
+def tela_listar_produtos():
+
+    janela = tk.Toplevel()
+
+    janela.title("Produtos")
+
+    produtos = banco.listar_produtos()
+
+    for p in produtos:
+
+        texto = f"ID {p[0]} | {p[1]} | Qtd: {p[2]}"
+
+        tk.Label(janela, text=texto).pack()
 
 
-janela = tk.Tk()
-janela.title("Sistema de Estoque")
-janela.geometry("400x300")
+# tela principal
+app = tk.Tk()
 
-titulo = tk.Label(janela, text="Sistema de Estoque", font=("Arial", 14))
-titulo.pack(pady=15)
+app.title("Sistema de Estoque")
+app.geometry("400x350")
 
-btn_usuario = tk.Button(janela, text="Cadastrar Usuário", width=25, command=cadastrar_usuario)
-btn_usuario.pack(pady=5)
+tk.Label(app, text="Sistema de Controle de Estoque", font=("Arial",14)).pack(pady=20)
 
-btn_produto = tk.Button(janela, text="Cadastrar Produto", width=25, command=cadastrar_produto)
-btn_produto.pack(pady=5)
+tk.Button(app, text="Cadastrar Usuário", width=25, command=tela_cadastrar_usuario).pack(pady=5)
 
-btn_sair = tk.Button(janela, text="Sair", width=25, command=janela.quit)
-btn_sair.pack(pady=15)
+tk.Button(app, text="Listar Produtos", width=25, command=tela_listar_produtos).pack(pady=5)
 
-janela.mainloop()
+tk.Button(app, text="Sair", width=25, command=app.quit).pack(pady=20)
+
+app.mainloop()
