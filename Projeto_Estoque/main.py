@@ -361,6 +361,8 @@ tk.Button(app,text="Entrada de Estoque",width=30,command=tela_entrada).pack(pady
 
 tk.Button(app,text="Saída de Estoque",width=30,command=tela_saida).pack(pady=5)
 
+tk.Button(app,text="Relatório de Movimentações",width=30,command=tela_relatorio).pack(pady=5)
+
 tk.Button(app,text="Sair",width=30,command=app.quit).pack(pady=20)
 
 app.mainloop()
