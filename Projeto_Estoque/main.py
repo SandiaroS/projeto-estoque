@@ -267,6 +267,9 @@ def tela_saida():
 
 app = tk.Tk()
 
+vcmd_int = (app.register(validar_inteiro), "%P")
+vcmd_data = (app.register(validar_data_input), "%P")
+
 app.title("Sistema de Estoque")
 app.geometry("400x420")
 
