@@ -1,11 +1,11 @@
 import sqlite3
 from datetime import datetime
 
-# conectar banco
+# CONEXAO COM O BANCO
 conn = sqlite3.connect("estoque.db")
 cursor = conn.cursor()
 
-# criar tabelas
+# CRIAR TABELAS
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS usuarios(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,7 +36,7 @@ data TEXT
 conn.commit()
 
 
-# validar data
+# VALIDACAO DO FORMATO DE PREENCHIMENTO DA DATA
 def validar_data(data_str):
 
     try:
@@ -52,7 +52,7 @@ def validar_data(data_str):
         return False
 
 
-# cadastrar usuário
+# CADASTRAR USUARIO
 def cadastrar_usuario(nome):
 
     cursor.execute(
@@ -63,7 +63,7 @@ def cadastrar_usuario(nome):
     conn.commit()
 
 
-# listar usuários
+# LISTA DE USUARIOS CADASTRADOS 
 def listar_usuarios():
 
     cursor.execute("SELECT id, nome FROM usuarios")
@@ -71,7 +71,7 @@ def listar_usuarios():
     return cursor.fetchall()
 
 
-# cadastrar produto
+# CADASTRO DE PRODUTOS NOVOS
 def cadastrar_produto(nome, quantidade, data, usuario_id):
 
     cursor.execute(
@@ -92,7 +92,7 @@ def cadastrar_produto(nome, quantidade, data, usuario_id):
     conn.commit()
 
 
-# listar produtos
+# LISTAGEM DE PRODUTOS JA CADASTRADOS E SUAS QUANTIDADES
 def listar_produtos():
 
     cursor.execute("SELECT id, nome, quantidade FROM produtos")
@@ -100,7 +100,7 @@ def listar_produtos():
     return cursor.fetchall()
 
 
-# entrada estoque
+# ENTRADA DE PRODUTOS NO ESTOQUE
 def entrada_estoque(produto_id, usuario_id, quantidade, data):
 
     cursor.execute("SELECT quantidade FROM produtos WHERE id=?", (produto_id,))
@@ -125,7 +125,7 @@ def entrada_estoque(produto_id, usuario_id, quantidade, data):
     conn.commit()
 
 
-# saída estoque
+# SAIDA DOS PRODUTOS DO ESTOQUE
 def saida_estoque(produto_id, usuario_id, quantidade, data):
 
     cursor.execute("SELECT quantidade FROM produtos WHERE id=?", (produto_id,))
@@ -153,7 +153,7 @@ def saida_estoque(produto_id, usuario_id, quantidade, data):
     conn.commit()
 
 
-# relatório
+# RELATORIO DE MOVIMENTACAO DO ESTOQUE
 def relatorio_movimentacoes():
 
     cursor.execute("""
