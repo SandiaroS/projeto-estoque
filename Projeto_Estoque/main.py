@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 import banco
 
 # ------------------------
@@ -296,7 +297,46 @@ def tela_saida():
 
     tk.Button(janela,text="Registrar",command=registrar).pack(pady=10)
 
+# ------------------------
+# RELATORIO DO ESTOQUE
+# ------------------------
 
+def tela_relatorio():
+
+    janela = tk.Toplevel()
+    janela.title("Relatório de Movimentações")
+    janela.geometry("700x400")
+
+    # tabela
+    tabela = ttk.Treeview(janela)
+
+    tabela["columns"] = ("produto","usuario","tipo","quantidade","data")
+
+    tabela.column("#0", width=0, stretch=tk.NO)
+
+    tabela.column("produto", anchor="w", width=150)
+    tabela.column("usuario", anchor="w", width=120)
+    tabela.column("tipo", anchor="center", width=100)
+    tabela.column("quantidade", anchor="center", width=100)
+    tabela.column("data", anchor="center", width=120)
+
+    tabela.heading("produto", text="Produto")
+    tabela.heading("usuario", text="Usuário")
+    tabela.heading("tipo", text="Tipo")
+    tabela.heading("quantidade", text="Quantidade")
+    tabela.heading("data", text="Data")
+
+    tabela.pack(fill="both", expand=True)
+
+    # buscar dados
+    registros = banco.relatorio_movimentacoes()
+
+    for i, r in enumerate(registros):
+        tabela.insert(
+            "",
+            "end",
+            values=(r[0], r[1], r[2], r[3], r[4])
+        )
 # ------------------------
 # TELA PRINCIPAL
 # ------------------------
