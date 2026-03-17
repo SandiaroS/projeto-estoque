@@ -2,6 +2,20 @@ import tkinter as tk
 from tkinter import messagebox
 import banco
 
+# ------------------------
+# VALIDA CAMPOS NUMERICOS
+# ------------------------
+
+def validar_inteiro(valor):
+    if valor == "":
+        return True
+    return valor.isdigit()
+
+
+def validar_data_input(valor):
+    permitido = "0123456789-"
+    return all(c in permitido for c in valor)
+
 
 # ------------------------
 # CADASTRAR USUÁRIO
@@ -106,7 +120,7 @@ def tela_listar_produtos():
 
     for p in produtos:
 
-        texto = f"ID {p[0]} | Produto: {p[1]} | Quantidade: {p[2]}"
+        texto = f"ID_Produto {p[0]} | Produto: {p[1]} | Quantidade: {p[2]}"
 
         tk.Label(janela,text=texto).pack()
 
