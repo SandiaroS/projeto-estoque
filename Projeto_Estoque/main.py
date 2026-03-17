@@ -275,7 +275,19 @@ def tela_saida():
         )
 
         if retorno == "estoque_insuficiente":
-            messagebox.showerror("Erro","Estoque insuficiente")
+
+            produtos = banco.listar_produtos()
+
+            for p in produtos:
+                if p[0] == produto_id:
+                    estoque_atual = p[2]
+                    break
+
+            messagebox.showerror(
+                "Erro",
+                f"Estoque insuficiente.\n\nEstoque atual do produto: {estoque_atual}"
+            )
+
             return
 
         messagebox.showinfo("Sucesso","Saída registrada")
