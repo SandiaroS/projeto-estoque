@@ -68,7 +68,11 @@ def tela_cadastrar_produto():
     nome.pack()
 
     tk.Label(janela, text="Quantidade inicial").pack()
-    quantidade = tk.Entry(janela)
+    quantidade = tk.Entry(
+        janela,
+        validate="key",
+        validatecommand=vcmd_int
+    )
     quantidade.pack()
 
     tk.Label(janela, text="Data (YYYY-MM-DD)").pack()
@@ -161,7 +165,11 @@ def tela_entrada():
     ).pack()
 
     tk.Label(janela,text="Quantidade").pack()
-    quantidade = tk.Entry(janela)
+    quantidade = tk.Entry(
+        janela,
+        validate="key",
+        validatecommand=vcmd_int
+    )
     quantidade.pack()
 
     tk.Label(janela,text="Data (YYYY-MM-DD)").pack()
@@ -227,7 +235,11 @@ def tela_saida():
     ).pack()
 
     tk.Label(janela,text="Quantidade").pack()
-    quantidade = tk.Entry(janela)
+    quantidade = tk.Entry(
+        janela,
+        validate="key",
+        validatecommand=vcmd_int
+    )
     quantidade.pack()
 
     tk.Label(janela,text="Data (YYYY-MM-DD)").pack()
