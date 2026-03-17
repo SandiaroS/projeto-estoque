@@ -166,7 +166,7 @@ def tela_entrada():
     tk.OptionMenu(
         janela,
         usuario_var,
-        *[f"{u[0]} - {u[1]}" for u in usuarios]
+        *[f"{u[0]} - {u[1]}" for u in usuarios] #SELECIONA PRODUTOS JA CADASTRADOS
     ).pack()
 
     tk.Label(janela,text="Quantidade").pack()
@@ -231,7 +231,7 @@ def tela_saida():
     tk.OptionMenu(
         janela,
         produto_var,
-        *[f"{p[0]} - {p[1]} (Estoque: {p[2]})" for p in produtos]
+        *[f"{p[0]} - {p[1]} (Estoque: {p[2]})" for p in produtos] #SELECIONA PRODUTOS JA CADASTRADOS
     ).pack()
 
     tk.Label(janela,text="Usuário").pack()

@@ -83,6 +83,7 @@ def cadastrar_produto(nome, quantidade, data, usuario_id):
 
     id_produto = cursor.lastrowid
 
+    #REGISTRA MOVIMENTACAO DATA E RESPONSAVEL
     cursor.execute("""
         INSERT INTO movimentacoes (produto_id, usuario_id, tipo, quantidade, data)
         VALUES (?, ?, ?, ?, ?)
@@ -108,13 +109,14 @@ def entrada_estoque(produto_id, usuario_id, quantidade, data):
     if estoque is None:
         return "produto_nao_existe"
 
-    nova_qtd = estoque[0] + quantidade
+    nova_qtd = estoque[0] + quantidade #ATUALIZA ESTOQUE AUTOMATICO
 
     cursor.execute(
         "UPDATE produtos SET quantidade=? WHERE id=?",
         (nova_qtd, produto_id)
     )
 
+    #REGISTRA MOVIMENTACAO DATA E RESPONSAVEL
     cursor.execute("""
     INSERT INTO movimentacoes(produto_id,usuario_id,tipo,quantidade,data)
     VALUES(?,?,?,?,?)
@@ -132,19 +134,20 @@ def saida_estoque(produto_id, usuario_id, quantidade, data):
     if estoque is None:
         return "produto_nao_existe"
 
-    if quantidade > estoque[0]:
+    if quantidade > estoque[0]: #VALIDA ESTOQUE ANTES DA SAIDA
         return "estoque_insuficiente"
 
-    nova_qtd = estoque[0] - quantidade
+    nova_qtd = estoque[0] - quantidade #ATUALIZA ESTOQUE AUTOMATICO
 
     cursor.execute(
         "UPDATE produtos SET quantidade=? WHERE id=?",
         (nova_qtd, produto_id)
     )
 
+    #REGISTRA MOVIMENTACAO DATA E RESPONSAVEL
     cursor.execute("""
     INSERT INTO movimentacoes(produto_id,usuario_id,tipo,quantidade,data)
-    VALUES(?,?,?,?,?)
+    VALUES(?,?,?,?,?) 
     """, (produto_id, usuario_id, "saida", quantidade, data))
 
     conn.commit()
