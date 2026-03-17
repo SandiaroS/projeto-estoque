@@ -230,7 +230,7 @@ def tela_saida():
     tk.OptionMenu(
         janela,
         produto_var,
-        *[f"{p[0]} - {p[1]}" for p in produtos]
+        *[f"{p[0]} - {p[1]} (Estoque: {p[2]})" for p in produtos]
     ).pack()
 
     tk.Label(janela,text="Usuário").pack()
